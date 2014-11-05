@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22231.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynTools", "RoslynTools\RoslynTools.csproj", "{2F42E703-5A51-4177-BC9A-EC8981864993}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynTools", "RoslynTools\RoslynTools.csproj", "{FC2794AC-8B22-4F81-8108-2F89619BB4C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2F42E703-5A51-4177-BC9A-EC8981864993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F42E703-5A51-4177-BC9A-EC8981864993}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F42E703-5A51-4177-BC9A-EC8981864993}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F42E703-5A51-4177-BC9A-EC8981864993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

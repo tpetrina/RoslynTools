@@ -1,17 +1,66 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Roslyn tools";
 }
 
-<!DOCTYPE html>
+@section Style
+{
+    <style>
+        html, body, .container {
+            height: 100%;
+        }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Roslyn Syntax Visualizer</title>
-</head>
-<body>
-    <div>
-    
+        #cs {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            border: 1px solid #888;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            padding: 5px;
+            max-width: none;
+        }
+
+        #roslyn {
+            height: 100%;
+        }
+
+        #wrapper {
+            margin-top: 10px;
+            height: 100%;
+        }
+
+            #wrapper div {
+                height: 100%;
+            }
+    </style>
+}
+
+<div class="row" id="wrapper">
+    <div class="col-md-6">
+        <textarea id="cs"></textarea>
     </div>
-</body>
-</html>
+
+    <div class="col-md-6">
+        <pre id="roslyn"></pre>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/underscore.min.js"></script>
+<script>
+    var $roslyn;
+    $(function () {
+        $roslyn = $("#roslyn");
+
+        var debounced = _.debounce(function () {
+            var data = $("#cs").val();
+            $.post('api/compiler/', "=" + data, function (d) {
+                $roslyn.text(d);
+            }).fail(function () { console.log("post failed"); });
+        }, 250);
+
+        $("#cs").keydown(debounced);
+    });
+</script>
