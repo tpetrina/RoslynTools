@@ -2,8 +2,9 @@
 
 namespace RoslynTools.Controllers
 {
-    public class HomeController : Controller
+    public class DumpTreeController : Controller
     {
+        // GET: DumpTree
         public ActionResult Index()
         {
             return View();
