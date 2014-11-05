@@ -75,7 +75,7 @@
     }
 
     function addNode(parent, node) {
-        var newNode = $("<li></li>").text(node.name + " (" + node.span.start + ", " + (node.span.start + node.span.length) + ")");
+        var newNode = $("<li></li>").text(node.name + " [" + node.span.start + ", " + (node.span.start + node.span.length) + "]");
         parent.append(newNode);
 
         if (node.children == null ||
