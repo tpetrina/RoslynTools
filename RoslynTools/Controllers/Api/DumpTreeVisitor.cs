@@ -26,6 +26,7 @@ namespace RoslynTools.Controllers.Api
             else
             {
                 _current.children.Add(nodeModel);
+                _current = nodeModel;
             }
 
             base.Visit(node);

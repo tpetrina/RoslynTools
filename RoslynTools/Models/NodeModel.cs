@@ -15,6 +15,7 @@ namespace RoslynTools.Models
         public string name { get; set; }
         public NodeType type { get; set; }
         public List<NodeModel> children { get; set; }
+        public SpanModel span { get; set; }
 
         private NodeModel()
         {
@@ -25,7 +26,12 @@ namespace RoslynTools.Models
         {
             return new NodeModel
             {
-                name = syntaxNode.CSharpKind().ToString()
+                name = syntaxNode.CSharpKind().ToString(),
+                span = new SpanModel
+                {
+                    start = syntaxNode.Span.Start,
+                    length = syntaxNode.Span.Length
+                }
             };
         }
     }

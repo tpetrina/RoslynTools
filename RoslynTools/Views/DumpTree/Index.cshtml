@@ -20,20 +20,29 @@
             border-radius: 5px;
             padding: 5px;
             max-width: none;
+            font-family: monospace;
+            -moz-resize: vertical;
+            -ms-resize: vertical;
+            -o-resize: vertical;
+            resize: vertical;
         }
 
         #roslyn {
             height: 100%;
+            padding-left: 0;
+            list-style-type: none;
+            font-family: "Consolas", monospace;
         }
+
+            #roslyn ul {
+                padding-left: 10px;
+                list-style-type: none;
+            }
 
         #wrapper {
             margin-top: 10px;
             height: 100%;
         }
-
-            #wrapper div {
-                height: 100%;
-            }
     </style>
 }
 
@@ -43,33 +52,62 @@
     </div>
 
     <div class="col-md-6">
-        <pre id="roslyn"></pre>
+        <ul id="roslyn"></ul>
     </div>
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/underscore.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
 <script>
     var $roslyn;
 
-    function construct(text, node) {
-        text += node.name + "\n";
+    function autoheight(a) {
+        if (!$(a).prop('scrollTop')) {
+            do {
+                var b = $(a).prop('scrollHeight');
+                var h = $(a).height();
+                $(a).height(h - 5);
+            }
+            while (b && (b != $(a).prop('scrollHeight')));
+        };
+        $(a).height($(a).prop('scrollHeight') + 20);
+    }
+
+    function addNode(parent, node) {
+        var newNode = $("<li></li>").text(node.name + " (" + node.span.start + ", " + (node.span.start + node.span.length) + ")");
+        parent.append(newNode);
+
+        if (node.children == null ||
+            node.children.length == 0)
+            return;
+
+        var list = $("<ul></ul>");
+        newNode.append(list);
+
         for (var i in node.children)
-            text = construct(text, node.children[i]);
-        return text;
+            addNode(list, node.children[i]);
+    }
+
+    function submitCode() {
+        var data = $("#cs").val();
+        $.post('api/dumptree/', "=" + data, function (d) {
+            $roslyn.empty();
+            addNode($roslyn, d);
+        }).fail(function () { console.log("post failed"); });
     }
 
     $(function () {
         $roslyn = $("#roslyn");
 
-        var debounced = _.debounce(function () {
-            var data = $("#cs").val();
-            $.post('api/dumptree/', "=" + data, function (d) {
-                var text = construct('', d);
-                $roslyn.text(text);
-            }).fail(function () { console.log("post failed"); });
-        }, 250);
+        autoheight($("#cs"));
+        $("#cs").keyup(function (e) {
+            autoheight(this);
+        });
+
+        var debounced = _.debounce(submitCode, 250);
 
         $("#cs").keydown(debounced);
+        submitCode();
     });
 </script>
