@@ -60,7 +60,7 @@
 <script src="~/Scripts/underscore.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
 <script>
-    var $roslyn;
+    var $roslyn, $cs;
 
     function autoheight(a) {
         if (!$(a).prop('scrollTop')) {
@@ -76,6 +76,13 @@
 
     function addNode(parent, node) {
         var newNode = $("<li></li>").text(node.name + " [" + node.span.start + ", " + (node.span.start + node.span.length) + "]");
+        newNode.click(function(event) {
+            event.stopPropagation();
+
+            $cs[0].setSelectionRange(node.span.start, node.span.start + node.span.length);
+            $cs[0].focus();
+        });
+
         parent.append(newNode);
 
         if (node.children == null ||
@@ -99,6 +106,7 @@
 
     $(function () {
         $roslyn = $("#roslyn");
+        $cs = $("#cs");
 
         autoheight($("#cs"));
         $("#cs").keyup(function (e) {
