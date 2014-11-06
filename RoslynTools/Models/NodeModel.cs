@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace RoslynTools.Models
 {
     public enum NodeType
     {
-        Node,
-        Trivia,
-        Token
+        node,
+        trivia,
+        token
     }
 
     public class NodeModel
     {
         public string name { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public NodeType type { get; set; }
         public List<NodeModel> children { get; set; }
         public SpanModel span { get; set; }
@@ -45,7 +48,7 @@ namespace RoslynTools.Models
                     start = trivia.Span.Start,
                     length = trivia.Span.Length
                 },
-                type = NodeType.Trivia
+                type = NodeType.trivia
             };
         }
 
@@ -59,7 +62,7 @@ namespace RoslynTools.Models
                     start = token.Span.Start,
                     length = token.Span.Length
                 },
-                type = NodeType.Token
+                type = NodeType.token
             };
         }
     }

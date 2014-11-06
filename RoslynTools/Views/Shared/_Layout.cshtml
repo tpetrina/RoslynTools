@@ -22,17 +22,19 @@
                 @Html.ActionLink("Roslyn tools", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                    <li class="navbar-brand">@ViewBag.SubTitle</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Massive Pixel</p>
-        </footer>
+        @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Massive Pixel</p>
+            </footer>*@
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

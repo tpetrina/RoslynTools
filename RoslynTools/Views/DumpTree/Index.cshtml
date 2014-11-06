@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Roslyn tools";
+    ViewBag.SubTitle = "- Syntax tree visualizer";
 }
 
 @section Style
@@ -10,7 +11,7 @@
         }
 
         .container {
-            height: calc(100% - 60px);
+            height: calc(100% - 20px);
         }
 
         footer {
@@ -48,11 +49,23 @@
 
         #wrapper {
             margin-top: 10px;
-            height: calc(100% - 20px);
+            height: 100%;
         }
 
             #wrapper div {
-            height: calc(100% - 20px);
+                height: 100%;
+            }
+
+            .trivia {
+                color: red;
+            }
+
+            .node {
+                color: blue;
+            }
+
+            .token {
+                color: green;
             }
     </style>
 }
@@ -75,7 +88,14 @@
     var $roslyn, $cs;
 
     function addNode(parent, node) {
-        var newNode = $("<li></li>").text(node.name + " [" + node.span.start + ", " + (node.span.start + node.span.length) + "]");
+        var newNode = $("<li></li>");
+        newNode.append($("<span />")
+            .text(node.name)
+            .attr("class", node.type));
+        newNode.append($("<span/>")
+            .text("[" + node.span.start + ", " + (node.span.start + node.span.length) + "]")
+        .attr("class", "span"));
+
         newNode.click(function (event) {
             event.stopPropagation();
 
