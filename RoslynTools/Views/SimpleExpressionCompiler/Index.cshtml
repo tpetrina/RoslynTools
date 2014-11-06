@@ -98,7 +98,8 @@
             $result.empty();
             $diagnostics.empty();
 
-            if (d.errors.length > 0) {
+            if (d.errors != undefined && 
+                d.errors.length > 0) {
                 var ol = $("<ol />");
                 $diagnostics.append(ol);
 
