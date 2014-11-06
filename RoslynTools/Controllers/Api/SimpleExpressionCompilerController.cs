@@ -15,6 +15,9 @@ namespace RoslynTools.Controllers.Api
     {
         public object Post([FromBody] string expression)
         {
+            if (string.IsNullOrEmpty(expression))
+                return "** try writing expressions in the text area the left**";
+
             try
             {
                 const string preCode = @"public class Submission
