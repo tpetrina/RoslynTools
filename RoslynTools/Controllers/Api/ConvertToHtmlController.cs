@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -50,9 +51,21 @@ namespace RoslynTools.Controllers.Api
                     return sb.ToString();
                 }
             }
-            catch (Exception)
+            catch (ReflectionTypeLoadException ex)
             {
-                return "Exception";
+                var sb = new StringBuilder();
+                sb.AppendLine(ex.ToString());
+                foreach (var e in ex.LoaderExceptions)
+                {
+                    sb.AppendLine("------------");
+                    sb.AppendLine(e.ToString());
+                }
+                return sb.ToString();
+            }
+
+            catch (Exception ex)
+            {
+                return "Exception: " + ex;
             }
         }
     }
