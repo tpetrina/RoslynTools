@@ -5,33 +5,36 @@
 @section Style
 {
     <style>
-        html, body, .container {
+        html, body {
             height: 100%;
+        }
+
+        .container {
+            height: calc(100% - 60px);
+        }
+
+        footer {
+            height: 20px;
         }
 
         #cs {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            height: 100%;
             width: 100%;
             border: 1px solid #888;
             -ms-border-radius: 5px;
             border-radius: 5px;
             padding: 5px;
             max-width: none;
-            font-family: monospace;
-            -moz-resize: vertical;
-            -ms-resize: vertical;
-            -o-resize: vertical;
-            resize: vertical;
+            font-family: "Consolas", monospace;
         }
 
         #roslyn {
-            height: 100%;
             padding-left: 0;
             list-style-type: none;
             font-family: "Consolas", monospace;
+            overflow-y: auto;
         }
 
             #roslyn ul {
@@ -39,10 +42,18 @@
                 list-style-type: none;
             }
 
+        #cs, #roslyn {
+            height: calc(100% - 20px);
+        }
+
         #wrapper {
             margin-top: 10px;
-            height: 100%;
+            height: calc(100% - 20px);
         }
+
+            #wrapper div {
+            height: calc(100% - 20px);
+            }
     </style>
 }
 
@@ -63,21 +74,9 @@
 <script>
     var $roslyn, $cs;
 
-    function autoheight(a) {
-        if (!$(a).prop('scrollTop')) {
-            do {
-                var b = $(a).prop('scrollHeight');
-                var h = $(a).height();
-                $(a).height(h - 5);
-            }
-            while (b && (b != $(a).prop('scrollHeight')));
-        };
-        $(a).height($(a).prop('scrollHeight') + 20);
-    }
-
     function addNode(parent, node) {
         var newNode = $("<li></li>").text(node.name + " [" + node.span.start + ", " + (node.span.start + node.span.length) + "]");
-        newNode.click(function(event) {
+        newNode.click(function (event) {
             event.stopPropagation();
 
             $cs[0].setSelectionRange(node.span.start, node.span.start + node.span.length);
@@ -108,11 +107,6 @@
     $(function () {
         $roslyn = $("#roslyn");
         $cs = $("#cs");
-
-        autoheight($("#cs"));
-        $("#cs").keyup(function (e) {
-            autoheight(this);
-        });
 
         var debounced = _.debounce(submitCode, 250);
 
