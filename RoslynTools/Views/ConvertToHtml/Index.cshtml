@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SubTitle = "- C# to HTML converter";
+}@section Style
+{
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .container {
+            height: calc(100% - 20px);
+        }
+
+        footer {
+            height: 20px;
+        }
+
+        #cs {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid #888;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            padding: 5px;
+            max-width: none;
+            font-family: "Consolas", monospace;
+        }
+
+        #roslyn {
+            padding: 0;
+            font-family: "Consolas", monospace;
+            overflow-y: auto;
+        }
+
+        #roslyn, #pure-roslyn {
+            height: calc(50% - 25px);
+        }
+
+        #cs {
+            height: calc(100% - 20px);
+        }
+
+        #wrapper {
+            margin-top: 10px;
+            height: 100%;
+        }
+
+            #wrapper div {
+                height: 100%;
+            }
+
+        .trivia {
+            color: red;
+        }
+
+        .node {
+            color: blue;
+        }
+
+        .token {
+            color: green;
+        }
+    </style>
+
+    <style>
+        .keyword {
+            color: blue;
+        }
+
+        .class-name {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+}
+
+<div class="row" id="wrapper">
+    <div class="col-md-6">
+        <label>C# code</label>
+        <textarea id="cs"></textarea>
+    </div>
+
+    <div class="col-md-6">
+        <label>Colored syntax</label>
+        <pre id="roslyn"></pre>
+        <label>HTML code</label>
+        <pre id="pure-roslyn"></pre>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/underscore.min.js"></script>
+<script>
+    var $roslyn, $cs;
+
+    function submitCode() {
+        var data = $("#cs").val();
+        $.post('/api/converttohtml/', "=" + data, function (d) {
+            $roslyn.empty();
+            $roslyn.append(d);
+            $("#pure-roslyn").text(d);
+        }).fail(function () { console.log("post failed"); });
+    }
+
+    $(function () {
+        $roslyn = $("#roslyn");
+        $cs = $("#cs");
+
+        var debounced = _.debounce(submitCode, 250);
+
+        $("#cs").keydown(debounced);
+        submitCode();
+    });
+</script>
