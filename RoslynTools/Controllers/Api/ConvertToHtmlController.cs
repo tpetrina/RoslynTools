@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
+using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Text;
 
 namespace RoslynTools.Controllers.Api
@@ -17,33 +18,37 @@ namespace RoslynTools.Controllers.Api
 
             try
             {
-                var workspace = new CustomWorkspace();
-                var solution = workspace.CurrentSolution;
-                var project = solution.AddProject("projectName", "assemblyName", LanguageNames.CSharp);
-                var document = project.AddDocument("name.cs", code);
-                var text = await document.GetTextAsync();
-
-                var classifiedSpans =
-                    (await Classifier.GetClassifiedSpansAsync(document, TextSpan.FromBounds(0, text.Length)))
-                        .ToList();
-
-                var sb = new StringBuilder();
-                var current = 0;
-                foreach (var classifiedSpan in classifiedSpans)
+                using (var workspace = new CustomWorkspace())
                 {
-                    var span = classifiedSpan.TextSpan;
-                    if (span.Start > current)
+                    var solution = workspace.CurrentSolution;
+                    var project = solution.AddProject("newproject", "newassembly", LanguageNames.CSharp);
+                    var document = project.AddDocument("newfile.cs", code);
+                    var text = await document.GetTextAsync();
+
+                    document = await Formatter.FormatAsync(document);
+
+                    var classifiedSpans =
+                        (await Classifier.GetClassifiedSpansAsync(document, TextSpan.FromBounds(0, text.Length)))
+                            .ToList();
+
+                    var sb = new StringBuilder();
+                    var current = 0;
+                    foreach (var classifiedSpan in classifiedSpans)
                     {
-                        sb.Append(code.Substring(current, span.Start - current));
+                        var span = classifiedSpan.TextSpan;
+                        if (span.Start > current)
+                        {
+                            sb.Append(code.Substring(current, span.Start - current));
+                        }
+
+                        sb.AppendFormat("<span class='{1}'>{0}</span>", code.Substring(span.Start, span.Length),
+                            classifiedSpan.ClassificationType.Replace(' ', '-'));
+
+                        current = span.End;
                     }
 
-                    sb.AppendFormat("<span class='{1}'>{0}</span>", code.Substring(span.Start, span.Length),
-                        classifiedSpan.ClassificationType.Replace(' ', '-'));
-
-                    current = span.End;
+                    return sb.ToString();
                 }
-
-                return sb.ToString();
             }
             catch (Exception)
             {
