@@ -34,5 +34,33 @@ namespace RoslynTools.Models
                 }
             };
         }
+
+        public static NodeModel FromTrivia(SyntaxTrivia trivia)
+        {
+            return new NodeModel
+            {
+                name = trivia.CSharpKind().ToString(),
+                span = new SpanModel
+                {
+                    start = trivia.Span.Start,
+                    length = trivia.Span.Length
+                },
+                type = NodeType.Trivia
+            };
+        }
+
+        public static NodeModel FromToken(SyntaxToken token)
+        {
+            return new NodeModel
+            {
+                name = token.CSharpKind().ToString(),
+                span = new SpanModel
+                {
+                    start = token.Span.Start,
+                    length = token.Span.Length
+                },
+                type = NodeType.Token
+            };
+        }
     }
 }
