@@ -172,13 +172,16 @@
     <Compile Include="Controllers\Api\DumpTextController.cs" />
     <Compile Include="Controllers\Api\DumpTreeVisitor.cs" />
     <Compile Include="Controllers\Api\DumpTextVisitor.cs" />
+    <Compile Include="Controllers\Api\SimpleExpressionCompilerController.cs" />
     <Compile Include="Controllers\ConvertToHtmlController.cs" />
     <Compile Include="Controllers\DumpTextController.cs" />
     <Compile Include="Controllers\DumpTreeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SimpleExpressionCompilerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompilationResultModel.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="Models\SpanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,6 +199,7 @@
     <Content Include="Views\DumpTree\Index.cshtml" />
     <Content Include="Views\DumpText\Index.cshtml" />
     <Content Include="Views\ConvertToHtml\Index.cshtml" />
+    <Content Include="Views\SimpleExpressionCompiler\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

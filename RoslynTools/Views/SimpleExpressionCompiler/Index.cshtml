@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.SubTitle = " - Simple expression compiler";
+}@section Style
+{
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .container {
+            height: calc(100% - 20px);
+        }
+
+        footer {
+            height: 20px;
+        }
+
+        #cs {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid #888;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            padding: 5px;
+            max-width: none;
+            font-family: "Consolas", monospace;
+            -moz-resize: none;
+            -ms-resize: none;
+            -o-resize: none;
+            resize: none;
+        }
+
+        #result {
+            padding: 0;
+            font-family: "Consolas", monospace;
+            overflow-y: auto;
+        }
+
+        #result, #diagnostics {
+            height: calc(50% - 25px);
+        }
+
+        #cs {
+            height: calc(100% - 20px);
+        }
+
+        #wrapper {
+            margin-top: 10px;
+            height: 100%;
+        }
+
+            #wrapper div {
+                height: 100%;
+            }
+    </style>
+
+    <style>
+    </style>
+}
+
+<div class="row" id="wrapper">
+    <div class="col-md-6">
+        <label>C# code</label>
+        <textarea id="cs"></textarea>
+    </div>
+
+    <div class="col-md-6">
+        <label>Output</label>
+        <pre id="result"></pre>
+        <label>Errors and warnings</label>
+        <pre id="diagnostics"></pre>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/underscore.min.js"></script>
+<script>
+    var $result, $cs, $diagnostics;
+    function addError(parent, error) {
+        var li = $("<li/>").text(error.message);
+        li.error = error;
+        li.click(function (event) {
+            $cs[0].setSelectionRange(error.span.start, error.span.start + error.span.length);
+            $cs[0].focus();
+            console.log("Error in: " + error.span.start + "-" + (error.span.start + error.span.length));
+            event.stopPropagation();
+        });
+        parent.append(li);
+    };
+
+    function submitCode() {
+        var data = $("#cs").val();
+        $.post('/api/simpleexpressioncompiler/', "=" + data, function (d) {
+            $result.empty();
+            $diagnostics.empty();
+
+            if (d.errors.length > 0) {
+                var ol = $("<ol />");
+                $diagnostics.append(ol);
+
+                for (var i in d.errors) {
+                    addError(ol, d.errors[i]);
+                }
+            } else {
+                $result.append(d);
+            }
+        }).fail(function () { console.log("post failed"); });
+    }
+
+    $(function () {
+        $result = $("#result");
+        $cs = $("#cs");
+        $diagnostics = $("#diagnostics");
+
+        var debounced = _.debounce(submitCode, 250);
+
+        $("#cs").keydown(debounced);
+        submitCode();
+    });
+</script>
