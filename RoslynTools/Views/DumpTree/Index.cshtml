@@ -29,6 +29,10 @@
             padding: 5px;
             max-width: none;
             font-family: "Consolas", monospace;
+            -moz-resize: none;
+            -ms-resize: none;
+            -o-resize: none;
+            resize: none;
         }
 
         #roslyn {
@@ -43,8 +47,16 @@
                 list-style-type: none;
             }
 
-        #cs, #roslyn {
+        #cs {
             height: calc(100% - 20px);
+        }
+
+        #roslyn, #properties {
+            height: calc(50% - 30px);
+        }
+
+        #properties {
+            overflow: auto;
         }
 
         #wrapper {
@@ -52,33 +64,35 @@
             height: 100%;
         }
 
-            #wrapper div {
-                height: 100%;
-            }
+        .trivia {
+            color: red;
+        }
 
-            .trivia {
-                color: red;
-            }
+        .node {
+            color: blue;
+        }
 
-            .node {
-                color: blue;
-            }
+        .token {
+            color: green;
+        }
 
-            .token {
-                color: green;
-            }
+        .full-height {
+            height: 100%;
+        }
     </style>
 }
 
 <div class="row" id="wrapper">
-    <div class="col-md-6">
+    <div class="col-md-6 full-height">
         <label>C# code</label>
         <textarea id="cs"></textarea>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 full-height">
         <label>Roslyn view visualizer</label>
         <ul id="roslyn"></ul>
+        <label>Properties</label>
+        <div id="properties"></div>
     </div>
 </div>
 
@@ -101,6 +115,8 @@
 
             $cs[0].setSelectionRange(node.span.start, node.span.start + node.span.length);
             $cs[0].focus();
+
+            $("#properties").text(node.raw);
         });
 
         parent.append(newNode);

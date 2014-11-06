@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 
 namespace RoslynTools.Models
 {
@@ -19,6 +22,7 @@ namespace RoslynTools.Models
         public NodeType type { get; set; }
         public List<NodeModel> children { get; set; }
         public SpanModel span { get; set; }
+        public object raw { get; set; }
 
         private NodeModel()
         {
@@ -34,7 +38,8 @@ namespace RoslynTools.Models
                 {
                     start = syntaxNode.Span.Start,
                     length = syntaxNode.Span.Length
-                }
+                },
+                raw = ToJson(syntaxNode, new List<string> { "Parent" })
             };
         }
 
@@ -48,7 +53,8 @@ namespace RoslynTools.Models
                     start = trivia.Span.Start,
                     length = trivia.Span.Length
                 },
-                type = NodeType.trivia
+                type = NodeType.trivia,
+                raw = ToJson(trivia, new List<string> { "Parent" })
             };
         }
 
@@ -62,8 +68,37 @@ namespace RoslynTools.Models
                     start = token.Span.Start,
                     length = token.Span.Length
                 },
-                type = NodeType.token
+                type = NodeType.token,
+                raw = ToJson(token, new List<string> { "Parent" })
             };
+        }
+
+        private static string ToJson<T>(T t, List<string> ignore)
+        {
+            var sb = new StringBuilder();
+            sb.Append("{");
+            var properties = t.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            for (var i = 0; i < properties.Length; ++i)
+            {
+                var property = properties[i];
+                if (ignore.Contains(property.Name)) continue;
+
+                if (i > 0) sb.Append(",");
+
+                try
+                {
+                    sb.AppendFormat("\"{0}\":{1}", property.Name, JsonConvert.SerializeObject(property.GetValue(t)));
+                }
+                catch (Exception ex)
+                {
+                    // swallow this exception
+                }
+            }
+
+            sb.Append("}");
+            return sb.ToString();
         }
     }
 }
