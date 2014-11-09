@@ -42,10 +42,15 @@ namespace RoslynTools.Controllers.Api
                         var span = classifiedSpan.TextSpan;
                         if (span.Start > current)
                         {
-                            sb.Append(code.Substring(current, span.Start - current));
+                            sb.Append(code.Substring(current, span.Start - current)
+                                .Replace(" ", "&nbsp")
+                                .Replace("\n", "<br />"
+                                ));
                         }
 
-                        sb.AppendFormat("<span class='{1}'>{0}</span>", code.Substring(span.Start, span.Length),
+                        sb.AppendFormat("<span class='{1}'>{0}</span>", code.Substring(span.Start, span.Length)
+                            .Replace(" ", "&nbsp")
+                            .Replace("\n", "<br />"),
                             classifiedSpan.ClassificationType.Replace(' ', '-'));
 
                         current = span.End;
