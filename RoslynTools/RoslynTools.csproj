@@ -194,12 +194,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\ConvertToHtmlController.cs" />
     <Compile Include="Controllers\Api\DumpTreeController.cs" />
-    <Compile Include="Controllers\Api\DumpTextController.cs" />
+    <Compile Include="Controllers\Api\SimpleVisualizerController.cs" />
     <Compile Include="Controllers\Api\DumpTreeVisitor.cs" />
-    <Compile Include="Controllers\Api\DumpTextVisitor.cs" />
+    <Compile Include="Controllers\Api\SimpleVisualizerVisitor.cs" />
     <Compile Include="Controllers\Api\SimpleExpressionCompilerController.cs" />
     <Compile Include="Controllers\ConvertToHtmlController.cs" />
-    <Compile Include="Controllers\DumpTextController.cs" />
+    <Compile Include="Controllers\SimpleVisualizerController.cs" />
     <Compile Include="Controllers\DumpTreeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SimpleExpressionCompilerController.cs" />

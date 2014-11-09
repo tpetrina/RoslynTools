@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace RoslynTools.Controllers.Api
 {
-    public class DumpTextVisitor : CSharpSyntaxWalker
+    public class SimpleVisualizerVisitor : CSharpSyntaxWalker
     {
         private readonly StringBuilder _sb = new StringBuilder();
         private int _indent;
@@ -14,7 +14,7 @@ namespace RoslynTools.Controllers.Api
             get { return _sb.ToString(); }
         }
 
-        public DumpTextVisitor()
+        public SimpleVisualizerVisitor()
             : base(SyntaxWalkerDepth.StructuredTrivia)
         { }
 

@@ -59,7 +59,7 @@
 
         var debounced = _.debounce(function () {
             var data = $("#cs").val();
-            $.post('api/dumptext/', "=" + data, function (d) {
+            $.post('api/simplevisualizer/', "=" + data, function (d) {
                 $roslyn.text(d);
             }).fail(function () { console.log("post failed"); });
         }, 250);

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace RoslynTools.Controllers.Api
 {
-    public class DumpTextController : ApiController
+    public class SimpleVisualizerController : ApiController
     {
         public string Post([FromBody]string text)
         {
@@ -12,7 +12,7 @@ namespace RoslynTools.Controllers.Api
             {
                 var tree = SyntaxFactory.ParseSyntaxTree(text ?? string.Empty, new CSharpParseOptions());
 
-                var visitor = new DumpTextVisitor();
+                var visitor = new SimpleVisualizerVisitor();
                 visitor.Visit(tree.GetRoot());
                 return visitor.Content;
             }

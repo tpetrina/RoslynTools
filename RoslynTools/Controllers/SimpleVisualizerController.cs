@@ -2,9 +2,8 @@
 
 namespace RoslynTools.Controllers
 {
-    public class DumpTextController : Controller
+    public class SimpleVisualizerController : Controller
     {
-        // GET: DumpText
         public ActionResult Index()
         {
             return View();
