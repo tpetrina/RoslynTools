@@ -4,13 +4,13 @@ using RoslynTools.Models;
 
 namespace RoslynTools.Controllers.Api
 {
-    public class DumpTreeVisitor : CSharpSyntaxWalker
+    public class SyntaxTreeVisualizerVisitor : CSharpSyntaxWalker
     {
         private NodeModel _current;
 
         public NodeModel Root { get; set; }
 
-        public DumpTreeVisitor()
+        public SyntaxTreeVisualizerVisitor()
             : base(SyntaxWalkerDepth.StructuredTrivia)
         {
         }

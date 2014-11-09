@@ -2,9 +2,8 @@
 
 namespace RoslynTools.Controllers
 {
-    public class DumpTreeController : Controller
+    public class SyntaxTreeVisualizerController : Controller
     {
-        // GET: DumpTree
         public ActionResult Index()
         {
             return View();

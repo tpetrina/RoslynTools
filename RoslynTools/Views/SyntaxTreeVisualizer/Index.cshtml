@@ -134,7 +134,7 @@
 
     function submitCode() {
         var data = $("#cs").val();
-        $.post('api/dumptree/', "=" + data, function (d) {
+        $.post('api/syntaxtreevisualizer/', "=" + data, function (d) {
             $roslyn.empty();
             addNode($roslyn, d);
         }).fail(function () { console.log("post failed"); });
