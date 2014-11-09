@@ -37,6 +37,10 @@
             padding: 0;
         }
 
+        #roslyn {
+            border-top-width: 2px;
+        }
+
         #cs {
             height: calc(100% - 20px);
         }
@@ -49,16 +53,16 @@
             height: 100%;
         }
 
-        .trivia {
-            color: red;
+        .progress-active {
+            border-top: 2px solid #E8E81A;
         }
 
-        .node {
-            color: blue;
+        .progress-completed {
+            border-top: 2px solid #00FA2A;
         }
 
-        .token {
-            color: green;
+        .progress-failed {
+            border-top: 1px solid red;
         }
     </style>
 
@@ -82,7 +86,7 @@
 
     <div class="col-md-6 full-height">
         <label>Colored syntax</label>
-        <div id="roslyn"></div>
+        <div id="roslyn" class=""></div>
         <label>HTML code</label>
         <div id="pure-roslyn"></div>
     </div>
@@ -94,12 +98,20 @@
     var $roslyn, $cs;
 
     function submitCode() {
+        $roslyn.removeClass("progress-active");
+
         var data = $("#cs").val();
         $.post('/api/converttohtml/', "=" + data, function (d) {
             $roslyn.empty();
             $roslyn.append(d);
             $("#pure-roslyn").text(d);
-        }).fail(function () { console.log("post failed"); });
+
+            $roslyn.addClass("progress-completed");
+            $roslyn.addClass("progresscompleted");
+        }).fail(function() {
+            console.log("post failed");
+            $roslyn.addClass("progress-failed");
+        });
     }
 
     $(function () {
@@ -108,7 +120,11 @@
 
         var debounced = _.debounce(submitCode, 250);
 
-        $("#cs").keydown(debounced);
+        $cs.keydown(function() {
+            $roslyn.removeClass("progress-completed");
+            $roslyn.removeClass("progress-failed");
+            $roslyn.addClass("progress-active");
+        }).keydown(debounced);
         submitCode();
     });
 </script>
