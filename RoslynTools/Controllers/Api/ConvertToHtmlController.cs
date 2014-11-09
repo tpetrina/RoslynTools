@@ -24,9 +24,12 @@ namespace RoslynTools.Controllers.Api
                     var solution = workspace.CurrentSolution;
                     var project = solution.AddProject("newproject", "newassembly", LanguageNames.CSharp);
                     var document = project.AddDocument("newfile.cs", code);
-                    var text = await document.GetTextAsync();
 
                     document = await Formatter.FormatAsync(document);
+                    var text = await document.GetTextAsync();
+
+                    var sourceText = await document.GetTextAsync();
+                    code = sourceText.ToString();
 
                     var classifiedSpans =
                         (await Classifier.GetClassifiedSpansAsync(document, TextSpan.FromBounds(0, text.Length)))
