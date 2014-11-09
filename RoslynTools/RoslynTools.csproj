@@ -159,11 +159,23 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\metro-bootstrap.css" />
+    <Content Include="Content\metro-bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\font-awesome\0a799148.fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons\32941d63.glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\metro-bootstrap.css.map" />
+    <Content Include="fonts\font-awesome\4587b062.fontawesome-webfont.ttf" />
+    <Content Include="fonts\font-awesome\8ebff60d.FontAwesome.otf" />
+    <Content Include="fonts\font-awesome\cf210dd5.fontawesome-webfont.eot" />
+    <Content Include="fonts\font-awesome\e683bb4d.fontawesome-webfont.woff" />
+    <Content Include="fonts\glyphicons\38e827a0.glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons\deae260a.glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons\e56f39cb.glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\RoslynTools.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -222,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\themes\base\images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
