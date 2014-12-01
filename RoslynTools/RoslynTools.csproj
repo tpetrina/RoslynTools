@@ -236,6 +236,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\images\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RoslynTools.Common\RoslynTools.Common.csproj">
+      <Project>{a7de9e96-648a-4e39-a7d4-0b63bd4f0863}</Project>
+      <Name>RoslynTools.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

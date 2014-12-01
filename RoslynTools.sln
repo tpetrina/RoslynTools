@@ -1,9 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynTools", "RoslynTools\RoslynTools.csproj", "{FC2794AC-8B22-4F81-8108-2F89619BB4C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FAD79EB8-D28E-478C-A062-431A9B8CEAD9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynTools.Common", "RoslynTools.Common\RoslynTools.Common.csproj", "{A7DE9E96-648A-4E39-A7D4-0B63BD4F0863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,10 @@ Global
 		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2794AC-8B22-4F81-8108-2F89619BB4C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DE9E96-648A-4E39-A7D4-0B63BD4F0863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DE9E96-648A-4E39-A7D4-0B63BD4F0863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DE9E96-648A-4E39-A7D4-0B63BD4F0863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DE9E96-648A-4E39-A7D4-0B63BD4F0863}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
