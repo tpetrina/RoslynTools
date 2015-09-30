@@ -5,9 +5,9 @@ namespace RoslynTools.Controllers.Api
 {
     public class ConvertToHtmlController : ApiController
     {
-        public async Task<CodeAsHtmlModel> Post([FromBody] string code)
+        public Task<string> Post([FromBody] string code)
         {
-            return RoslynTools.Common.CSharpToHtml.ConvertAsync(code);
+            return RoslynTools.Common.CSharpToHtml.Convert(code);
         }
     }
 }
